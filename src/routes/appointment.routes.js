@@ -124,5 +124,24 @@ router.get("/search/:id", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+ // Buscar agendamentos de um tutor específico (para a visão do Tutor no app)
+router.get("/tutor/:tutor_id", async (req, res) => {
+  try {
+    const { tutor_id } = req.params;
 
+    const result = await pool.query(
+      `SELECT a.id, c.nome AS nome_gato, a.data_consulta, a.descricao, a.status
+       FROM appointments a
+       JOIN cats c ON a.cat_id = c.id
+       WHERE c.tutor_id = $1
+       ORDER BY a.data_consulta DESC`,
+      [tutor_id]
+    );
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+}); 
 module.exports = router;
