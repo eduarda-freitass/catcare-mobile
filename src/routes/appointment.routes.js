@@ -61,10 +61,15 @@ router.get("/", async (req, res) => {
 });
 
 // Atualizar agendamento
+// Atualizar agendamento
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { data_consulta, descricao, status } = req.body;
+
+    if (!data_consulta) {
+      return res.status(400).json({ error: "data_consulta é obrigatória" });
+    }
 
     const result = await pool.query(
       `UPDATE appointments 

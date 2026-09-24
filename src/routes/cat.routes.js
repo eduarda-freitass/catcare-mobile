@@ -67,10 +67,15 @@ router.get("/", async (req, res) => {
 });
 
 // atualizar gato
+// atualizar gato
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { nome, idade, raca, tutor_id } = req.body;
+
+    if (!nome) {
+      return res.status(400).json({ error: "Nome é obrigatório" });
+    }
 
     const result = await pool.query(
       `UPDATE cats 
