@@ -24,7 +24,7 @@ Node.js, Express, PostgreSQL, Docker
 ## Como rodar
 
 ```bash
-git clone https://github.com/eduarda-freitass/catcare-mobile.git
+git clone https://github.com/seu-usuario/catcare-mobile.git
 cd catcare-mobile
 docker compose up --build
 ```
